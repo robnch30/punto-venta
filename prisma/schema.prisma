@@ -1,0 +1,60 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Product {
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  barCode     Int         @unique 
+  name        String    
+  sellPrice   Float        
+  buyPrice    Float      
+  supplier    Supplier?    @relation(fields: [supplierId], references: [id])
+  supplierId  String       @db.ObjectId
+  departament Departament?  @relation(fields: [departamentId], references: [id])  
+  departamentId String     @db.ObjectId
+  taxes       Taxe[]
+  stock       Int       
+  createAt    DateTime    @default(now())
+  updateAt    DateTime    @default(now())
+}
+
+model Supplier {
+  id            String  @id @default(auto()) @map("_id") @db.ObjectId
+  email         String  @unique
+  name          String
+  phone         Int
+  company       String
+  rfcCompany    String
+  street        String
+  zipCode       Int
+  outdoorNumber Int
+  sttlement     String
+  product       Product[]
+  createAt      DateTime @default(now())
+  updateAt      DateTime @default(now())
+}
+
+model Taxe {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  percent   Float
+  products  Product   @relation(fields: [productId], references: [id])
+  productId String    @db.ObjectId
+  createAt  DateTime  @default(now())
+  updateAt  DateTime  @default(now())
+}
+
+model Departament {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String    @unique 
+  product   Product[]
+  createAt  DateTime  @default(now())
+  updateAt  DateTime  @default(now())
+}
+
+

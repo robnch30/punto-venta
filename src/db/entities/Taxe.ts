@@ -12,15 +12,15 @@ export class Taxe {
     @Field()
     percent: number
 
-    @Field((type) => Product)
-    product: Product
+    @Field((type) => Product, {nullable: true})
+    product?: Product | null
 
-    @Field((type) => ID)
-    productId: string
+    @Field((type) => String, {nullable: true})
+    productId?: String | null 
 
-    @Field((type) => Date)
-    createAt: string
+    @Field((type) => Date, {nullable: true})
+    createAt: Date | null
 
-    @Field((type) => Date)
-    updateAt: string    
+    @Field((type) => Date, {nullable: true})
+    updateAt: Date | null
 }

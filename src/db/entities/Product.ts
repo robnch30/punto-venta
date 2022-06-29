@@ -9,7 +9,7 @@ export class Product {
     @Field((type) => ID)
     id: string
 
-    @Field()
+    @Field((type) => Number)
     barCode: number
 
     @Field()
@@ -26,18 +26,16 @@ export class Product {
     @Field((type) => Supplier, {nullable: true})
     supplier?: Supplier | null
 
-    @Field()
-    supplierId?: string
-
-    @Field((Type) => Departament, {nullable: true})
-    departament?: Departament [] | null
-
     @Field((type) => Taxe, {nullable: true})
-    taxes?: Taxe [] | null
+    taxes?: Taxe[] | null
 
-    @Field((type) => Date)
-    createAt: Date
+    @Field((type) => String, {nullable: true})
+    departamentId?: string | null
 
-    @Field((type) => Date)
-    updateAt: Date
+    @Field((type) => Date, {nullable: true})
+    createAt: Date | null
+
+    @Field((type) => Date, {nullable: true})
+    updateAt: Date | null
 }
+

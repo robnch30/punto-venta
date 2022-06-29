@@ -24,7 +24,7 @@ proveedor: número identificador del proveedor
 departamento: nùmero identificador del departamento 
 Impuesto: Lista de impuestos que le aplican el producto o servicio 
 Inventario: Cantidad de productos o recursos disponibles
-Para la midificaciòn los campos son opcionales.
+* Para la modificaciòn los campos son opcionales.
 
 Venta de productos o servicios.
 La aplicación debe de realizar la captura de los productos y/o servicios que el usuario compró.

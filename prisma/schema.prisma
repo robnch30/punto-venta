@@ -8,19 +8,17 @@ generator client {
 }
 
 model Product {
-  id          String      @id @default(auto()) @map("_id") @db.ObjectId
-  barCode     Int         @unique 
-  name        String    
-  sellPrice   Float        
-  buyPrice    Float      
-  supplier    Supplier?    @relation(fields: [supplierId], references: [id])
-  supplierId  String       @db.ObjectId
-  departament Departament?  @relation(fields: [departamentId], references: [id])  
-  departamentId String     @db.ObjectId
-  taxes       Taxe[]
-  stock       Int       
-  createAt    DateTime    @default(now())
-  updateAt    DateTime    @default(now())
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  barCode       Int         @unique 
+  name          String    
+  sellPrice     Float        
+  buyPrice      Float      
+  supplier      Supplier?
+  departaments  Departament[]
+  taxes         Taxe[]
+  stock         Int       
+  createAt      DateTime?    @default(now())
+  updateAt      DateTime?    @default(now())
 }
 
 model Supplier {
@@ -30,11 +28,12 @@ model Supplier {
   phone         Int
   company       String
   rfcCompany    String
-  street        String
-  zipCode       Int
-  outdoorNumber Int
-  sttlement     String
-  product       Product[]
+  street        String?
+  zipCode       Int?
+  outdoorNumber Int?
+  sttlement     String?
+  product       Product? @relation(fields: [productId], references: [id])
+  productId     String?  @unique @db.ObjectId
   createAt      DateTime @default(now())
   updateAt      DateTime @default(now())
 }
@@ -43,18 +42,31 @@ model Taxe {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
   name      String
   percent   Float
-  products  Product   @relation(fields: [productId], references: [id])
-  productId String    @db.ObjectId
-  createAt  DateTime  @default(now())
-  updateAt  DateTime  @default(now())
+  products  Product?   @relation(fields: [productId], references: [id])
+  productId String?    @db.ObjectId
+  createAt  DateTime   @default(now())
+  updateAt  DateTime   @default(now())
 }
 
 model Departament {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
   name      String    @unique 
-  product   Product[]
+  product   Product?  @relation(fields: [productId], references: [id])
+  productId String?   @db.ObjectId
   createAt  DateTime  @default(now())
   updateAt  DateTime  @default(now())
 }
+
+model Tiket {
+
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  quantity    Float
+  barCode     Int
+  nameProduct String
+  sellPrice   Float
+  subTotal    Float
+}
+
+
 
 

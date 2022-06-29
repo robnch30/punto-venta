@@ -8,8 +8,7 @@ const productData: Prisma.ProductCreateInput[] = [
         name: "coca cola light",
         sellPrice: 12,
         buyPrice: 16,
-        stock: 200,
-        supplier:{}
+        stock: 200
     }
 ]
 
@@ -21,3 +20,12 @@ async function main () {
         });
     }    
 }
+
+main()
+    .catch((e)=> {
+        console.error(e)
+        process.exit(1);
+    })
+    .finally(async()=>{
+        await prisma.$disconnect();
+    });

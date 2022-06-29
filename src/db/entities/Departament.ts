@@ -9,11 +9,11 @@ export class Departament {
     @Field()
     name: string
 
-    @Field((Type) => Product, { nullable: true} )
+    @Field((type) => Product, { nullable: true})
     product?: Product | null
 
-    @Field()
-    productId?: string
+    @Field((type) => ID, {nullable: true})
+    productId?: string | null
 
     @Field((type) => Date)
     createAt: Date

@@ -23,9 +23,9 @@ export class DepartamentMutation {
         @Arg('data') data: DepartamentCreateInput,
         @Ctx() ctx: Context
     ): Promise <Departament> {
-        return ctx.prisma.department.create({
+        return ctx.prisma.departament.create({
             data:{
-                name: data.name                
+                name: data.name
             }
         })
     }

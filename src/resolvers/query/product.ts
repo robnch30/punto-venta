@@ -6,20 +6,11 @@ import{
     InputType,
     Field,
     Info,
+    Arg,
 }from 'type-graphql'
 import { Product } from '../../db/entities'
 import { Context } from '../../config/context'
-import e from 'cors'
-
-@InputType()
-class ProductImput {
-    @Field({ nullable: true })
-    barCode: number
-
-    @Field()
-    name: string
-
-}
+import { FindProduct, ProductCreateInput } from '../mutation/inputs'
 
 @Resolver( Product )
 export class ProductQuery {
@@ -31,18 +22,19 @@ export class ProductQuery {
 
     @Query(() => Product)
     async findProduct(
-         @Ctx() ctx : Context,
-         params: { barCode : number }
+         @Arg('params') params: FindProduct,  
+         @Ctx() ctx : Context
     ){
         const product = await ctx.prisma.product.findUnique({
             where: {
                 barCode: params.barCode
             }
         });
+        console.log(product)
         if ( !product){
             throw new Error (`Product not fund whit this bar code ${params.barCode}`)
         } 
-        return `${product.id}-${product.barCode}-${product.sellPrice}-${product.name},${product.stock}`
+        return product
     }
 }
 

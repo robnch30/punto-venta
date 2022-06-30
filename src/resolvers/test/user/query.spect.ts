@@ -1,10 +1,13 @@
-import { User } from "@prisma/client";
+import { Product } from "@prisma/client";
 import { faker } from '@faker-js/faker';
 import { MockContext, Context, createMockContext } from "../../../config/context";
 import { UserQuery } from "../../query/user/user";
+import { ProductQuery } from "../../query/product";
 import { text } from "stream/consumers";
+import { Int } from "type-graphql";
 
 const userClass = new UserQuery();
+const ProductClass = new ProductQuery();
 
 let mockCtx: MockContext;
 let ctx: Context;
@@ -14,16 +17,16 @@ beforeEach(() => {
    ctx = mockCtx as unknown as Context; 
 });
 
-test('should find a user by id', async() => {
-    const expectUser = {
+test('should find a product by barCode', async() => {
+    const productExpec = {
         id: faker.database.mongodbObjectId(),
-        email: faker.internet.email(),
+        barCode: Int,
         createAt: new Date(),
         updateAt: new Date()
     };
 
-    mockCtx.prisma.user.findUnique.mockResolvedValue(expectUser)
-    const response = userClass.userById( mockCtx, { userId: expectUser.id });
+    mockCtx.prisma.product.findUnique.mockResolvedValue([ productExpec ])
+    const response = ProductClass.product( mockCtx, { userId: expectUser.id });
     await expect(response).resolves.toEqual(expectUser);
 })
 

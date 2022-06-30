@@ -74,8 +74,8 @@ export class ProductMutation {
             }
         })
     }
-
-/*     @Mutation((returns) => Boolean)
+/* 
+    @Mutation((returns) => Boolean)
     async updateProduct(
         @Arg('data') data: FindProduct,
         @Arg('fields') fields: UpdateProduct,

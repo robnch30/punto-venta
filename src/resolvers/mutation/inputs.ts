@@ -44,29 +44,33 @@ export class FindProduct {
 
 @InputType()
 export class UpdateProduct {
+
     @Field()
-    barCode: number
-
-    @Field((type) => String, {nullable: true})
-    name?: string | null
+    name?: string
     
-    @Field((type) => Number, {nullable: true})
-    sellPrice?: number | null
+    @Field()
+    sellPrice?: number
 
-    @Field((type) => Number, {nullable: true})
-    buyPrice?: number | null
+    @Field()
+    buyPrice?: number
     
-    @Field((type) => Number, {nullable: true})
-    stock?: number | null
+    @Field()
+    stock?: number
 }
 
 @InputType()
 export class TiketCrete {
     @Field()
-    quantity: number
+    name?: string
+    
+    @Field()
+    sellPrice?: number
+    
+    @Field()
+    stock?: number
 
     @Field()
-    barCode: number
+    subTotal?: number
 }
 
 @InputType()

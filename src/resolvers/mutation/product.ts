@@ -55,7 +55,7 @@ export class ProductMutation {
         })
     }
 
-    @Mutation((returns) => Product)
+/*     @Mutation((returns) => Product)
     async updateProduct(
         @Arg('data') data: ProductCreateInput,
         @Arg('fields') fields: UpdateProduct,
@@ -73,47 +73,61 @@ export class ProductMutation {
                 stock: data.stock
             }
         })
-    }
-/* 
-    @Mutation((returns) => Boolean)
-    async updateProduct(
-        @Arg('data') data: FindProduct,
-        @Arg('fields') fields: UpdateProduct,
-        @Ctx() ctx: Context
-    ){ 
-        console.log(data.barCode)
-        const upProduct = await ctx.prisma.product.update({
-            where: {
-                barCode: data.barCode
-            },
-        })
     } */
 
-    
+    @Mutation((returns) => Product)
+    async updateProductByBarCode(
+        @Arg('barCode') barCode: number,
+        @Arg('mod') mod: UpdateProduct,
+        @Ctx() ctx: Context
+    ):Promise<Product>{ 
+        console.log("Busqueda de producto "+barCode)
+        return await ctx.prisma.product.update({
+            where: {barCode: barCode},
+            data:{ 
+                name: mod.name,
+                buyPrice: mod.buyPrice,
+                sellPrice: mod.sellPrice,
+                stock: mod.stock
+             }
+        });
+    }
+
+/*     @Mutation( (returns) => Product )
+    async CreateTiket(
+        @Arg('findProduc') quantityProduct: {
+            barCodeProduct: number,
+            quantityProduct: number
+        }
+
+    ):Promise<Product>{
+
+    } */
 
     @Mutation((returns) => Tiket)
     async createTiket(
+        @Arg('barCodeProduct') barCodeProduct: number,
+        @Arg('quantityProduct') quantityProduct: number,
         @Arg('data') data: TiketCrete,
-        //@Arg('params') params: FindProduct,
         @Ctx() ctx: Context
     ){
         const product = await ctx.prisma.product.findUnique({
             where:{
-                barCode: data.barCode
+                barCode: barCodeProduct
             }
         });
         console.log(product)
         if ( !product){
-            throw new Error (`Product not fund whit this bar code ${data.barCode}`)
+            throw new Error (`Product not fund whit this bar code ${barCodeProduct}`)
         } 
        
         const tiket = await ctx.prisma.tiket.create({
             data:{
-                quantity: data.quantity,
+                quantity: quantityProduct,
                 barCode: product.barCode,
                 nameProduct: product.name,
                 sellPrice: product.sellPrice,
-                subTotal: data.quantity * product.sellPrice
+                subTotal: quantityProduct * product.sellPrice
             }
         });
         console.log("Tiket")

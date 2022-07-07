@@ -15,7 +15,7 @@ const app = async () => {
     })
 
     new ApolloServer({schema, context}).listen({ port:4000 }, () => {
-        console.log('server ready');
+        console.log('server ready 🚀');
     })
 }
 

@@ -21,18 +21,18 @@ export class ProductQuery {
     }
 
     @Query(() => Product)
-    async findProduct(
-         @Arg('params') params: FindProduct,  
+    async findProductByBarCode(
+         @Arg('barCodeProduct') barCodeProduc: number,  
          @Ctx() ctx : Context
     ){
         const product = await ctx.prisma.product.findUnique({
             where: {
-                barCode: params.barCode
+                barCode: barCodeProduc
             }
         });
         console.log(product)
         if ( !product){
-            throw new Error (`Product not fund whit this bar code ${params.barCode}`)
+            throw new Error (`Product not fund whit this bar code ${barCodeProduc}`)
         } 
         return product
     }

@@ -49,3 +49,31 @@ Se deben de registrar los datos de los proveedores:
 * Domicilio Calle
 * Còdigo postal
 * Colonia 
+
+### Instrucciones de uso 
+
+* Descargar la imagen de docker hub ``https://hub.docker.com/repository/docker/robertnch03/punto-venta``
+
+* Ejecutar el comanto RUN Doker 
+```
+docker run -d -p 8081:4000 robertnch03/punto-venta:1.0.1
+
+```
+* En la terminarl de Docker debera de aparecer el texto ``server ready 🚀``
+con esto al finar en el navegador de preferencia ingresamos `` http://localhost:8081/ ``
+
+* Se muestra el servidor de Appollo 
+*** 
+Con las operaciones que se pueden realizar.
+#### Querys
+* allProducts   = buscar todos los productos
+* findProductByBarCode = buscar un producto en espesifico por códigos de barras
+
+#### Mutation
+* createProduct = crear un producto
+* deleteProduct = eliminar un producto
+* updateProductByBarCode = actualizar datos del producto
+* createTiket = crear un tiket de compra
+* createSupplier = crear un proveedor
+* createTaxe = crear un impuesto
+

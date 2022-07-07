@@ -1,2 +1,2 @@
 rs.status();
-db.createUser({user: 'admin', pwd: 'R30Nchimal', roles: [ { role: 'root', db: 'admin' } ]});
+db.createUser({user: 'admin', pwd: 'R30nchimal', roles: [ { role: 'root', db: 'admin' } ]});
